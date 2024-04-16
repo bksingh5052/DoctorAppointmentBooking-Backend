@@ -14,13 +14,14 @@ export const getAllReviews = async(req,res)=>{
 }
 
 export const createReview = async(req,res)=>{
-    if(!req.body.doctor) req.body.doctor = req.params.doctorId
-    if(!req.body.user) req.body.user = req.userId
+    const user = req.userId;
+    const doctor = req.params.doctorId
 
-    const newReveiw = new Review(req.body)
+
+    const newReveiw = new Review({...req.body,user,doctor})
     try {
         const savedReview = await newReveiw.save();
-        await Doctor.findByIdAndUpdate(req.body.doctor, {
+        await Doctor.findByIdAndUpdate(doctor, {
             $push:{reviews: savedReview._id}
         })
         res.status(200).json({success:true, message:'Review submitted', data:savedReview})

@@ -73,13 +73,15 @@ export const getAllDoctor = async (req, res) => {
 export const getDoctorProfile = async (req,res)=>{
   const doctorId = req.userId
     try {
-        const doctor = await Doctor.findOne({doctorId});
+        const doctor = await Doctor.findById(doctorId);
+
         if(!doctor){
             res.status(404).json({success:false, message:'Doctor not found'})
         }
-        const {password, ...rest} = doctor;
-        const appoinments = await Booking.find({doctor:doctorId})
-        res.status(200).json({success:true, message:'Profile info getting', data:{...rest, appoinments}})
+        const {password, ...rest} = doctor._doc;
+
+        res.status(200).json({success:true, message:'Profile info getting', data:{...rest} })   
+        // , data:{...rest, appoinments}  sned this in response
     } catch (err) {
         res.status(500).json({success:false, message:'Something went wronge, cannot get'})
     }

@@ -49,7 +49,7 @@ const {email, password, name, role, photo, gender} = req.body
             user = new Doctor({
                 name,
                 email,
-                password,
+                password : hashPassword,
                 photo,
                 gender,
                 role
@@ -95,8 +95,7 @@ export const login = async (req,res) =>{
         const token = generateToken(user);
 
         const {password,role, appoinment, ...rest} = user._doc
-        // console.log(user, 'user')
-        // console.log(user._doc, 'user doc')
+
 
         res.status(200).json({success:true, message:"Successfully login", token,role,data:{...rest}})
 

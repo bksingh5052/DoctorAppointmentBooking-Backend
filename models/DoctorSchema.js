@@ -4,6 +4,7 @@ const DoctorSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   name: { type: String, required: true },
+  gender: { type: String, enum: ["male", "female", "other"] },
   phone: { type: Number },
   photo: { type: String },
   ticketPrice: { type: Number },
@@ -13,9 +14,9 @@ const DoctorSchema = new mongoose.Schema({
 
   // Fields for doctors only
   specialization: { type: String },
-  qualifications: {
+  qualifications:{
     type: Array,
-  },
+},
 
   experiences: {
     type: Array,

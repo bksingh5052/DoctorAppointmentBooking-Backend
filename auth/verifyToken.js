@@ -12,7 +12,7 @@ export const authenticate = async (req,res,next)=>{
     }
 
     try {
-        // console.log(authToken);
+
         const token = authToken.split(' ')[1]
 
 
